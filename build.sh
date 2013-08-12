@@ -24,7 +24,7 @@ DEFCONFIG=c1ktt_00_defconfig
 
 # Make folder
 if [ ! -d $FOLDER ]; then
-	mkdir -p ../Build_LucidOS_ef47s
+	mkdir -p ../$FOLDER
 	chmod 755 $FOLDER
 fi
 

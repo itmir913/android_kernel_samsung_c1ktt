@@ -24,7 +24,7 @@ DEFCONFIG=c1ktt_00_defconfig
 
 # Make folder
 if [ ! -d $FOLDER ]; then
-	mkdir -p ../$FOLDER
+	mkdir -p $FOLDER
 	chmod 755 $FOLDER
 fi
 

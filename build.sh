@@ -23,11 +23,13 @@ zImage="$FOLDER/arch/arm/boot/zImage"
 DEFCONFIG=c1ktt_00_defconfig
 
 # Make folder
+if [ "$1" = "this" ]; then
+	echo "This Folder Build"
+else
 if [ ! -d $FOLDER ]; then
 	mkdir -p $FOLDER
 	chmod 755 $FOLDER
 fi
-
 # Load defconfig
 if [ ! -f $FOLDER/.config ]; then
 	echo "--------------------------"
@@ -36,15 +38,34 @@ if [ ! -f $FOLDER/.config ]; then
 	echo ""
 	make O=$FOLDER $DEFCONFIG
 fi
+fi
+
+if [ "$1" = "this" ]; then
+if [ ! -f .config ]; then
+	make $DEFCONFIG
+fi
+fi
 
 # Build Start
 if [ "$1" = "" ]; then
 	make -j8 O=$FOLDER
 else
-	make -j8 O=$FOLDER $1 $2 $3
+	if [ "$1" = "this" ]; then
+		if [ "$2" = "" ]; then
+			make -j8
+		else
+			make -j8 $2 $3 $4
+		fi
+	else
+		make -j8 O=$FOLDER $1 $2 $3
+	fi
 fi
 
 # Copy zImage
 if [ -f $FOLDER/arch/arm/boot/zImage ]; then
     cp -f $FOLDER/arch/arm/boot/zImage ./
+fi
+
+if [ -f arch/arm/boot/zImage ]; then
+    cp -f arch/arm/boot/zImage ./
 fi
